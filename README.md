@@ -44,4 +44,4 @@ In the config.py file you can change the deadzone of each stick, the name of the
 ```
 ~/.venv/bin/python ds4input.py
 ```
-as the script looks for the controller directly on start.
+as the script looks for the controller directly on start else the script will just stop with an error.
