@@ -17,9 +17,11 @@ git clone https://github.com/sera-ina/DualShock-uinput.git
 ## Requirements
 - python3
   - tested with Python 3.13.3
-- pip
+- python3-dev
 - python_uinput 1.0.1
 - evdev 1.9.2
+- gcc
+  - or build-essentials (if on debian/ubuntu)
 - bluetoothctl
   - if desired to be able to disconnect the controller via (PS + Start) combination
 
@@ -28,6 +30,10 @@ git clone https://github.com/sera-ina/DualShock-uinput.git
 Once you installed python on your system, create a virtual enviroment (for example ".venv" in your home folder)
 ```
 python3 -m venv ~/.venv
+```
+Update pip
+```
+~/.venv/bin/pip install --upgrade pip setuptools wheel
 ```
 When it is done, install the dependencies manually or with the requirements.txt file
 ```
