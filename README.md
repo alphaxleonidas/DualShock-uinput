@@ -39,6 +39,25 @@ When it is done, install the dependencies manually or with the requirements.txt 
 ```
 ~/.venv/bin/pip install -r requirements.txt
 ```
+Create udev rules
+```
+sudo nano /etc/udev/rules.d/99-psinput.rules
+
+KERNEL=="uinput", MODE="0660", GROUP="input"
+```
+Add user to input group
+```
+sudo usermod -aG input $USER
+```
+Load uinput module
+```
+sudo modprobe uinput
+```
+Reload udev rules
+```
+sudo udevadm control --reload-rules
+sudo udevadm trigger
+```
 
 # Usage
 In the config.py file you can change the deadzone of each stick, the name of the controller and if you want to be able to use the (PS + Start) combo to disconnect the controller.
