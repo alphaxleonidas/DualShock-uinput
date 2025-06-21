@@ -42,10 +42,12 @@ When it is done, install the dependencies manually or with the requirements.txt 
 ```
 ~/.venv/bin/pip install -r requirements.txt
 ```
-Create udev rules
+Create udev rules file
 ```
 sudo nano /etc/udev/rules.d/99-psinput.rules
-
+```
+and add
+```
 KERNEL=="uinput", MODE="0660", GROUP="input"
 ```
 Add user to input group
