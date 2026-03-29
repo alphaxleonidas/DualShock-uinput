@@ -106,8 +106,8 @@ Now make this desktop entry an executeable:
 ```
 chmod +x ~/.local/share/applications/ds4input.desktop
 ```
-Now logout and relogin into a new session. You will see ```ds4input``` in the appmenu.
-Now connect your DualShock or DualSense and run the ds4input from the appmenu.
+Now logout and relogin into a new session. You will see ```DualShock uinput``` in the appmenu.
+Now connect your DualShock or DualSense and run the ```DualShock uinput``` from the appmenu.
 
 # Additional Infos
 - No vibration / force feedback
