@@ -33,7 +33,7 @@ git clone https://github.com/sera-ina/DualShock-uinput.git
 sudo apt update
 sudo apt install python3-dev python3-venv
 ```
-note: rest of the dependencies are not needed in my testing. might have to use bluez instead of bluetoothctl for ubuntu based distros.
+note: rest of the dependencies are not needed in my testing. might have to use ```bluez``` instead of ```bluetoothctl``` for ubuntu based distros.
 
 ## Preparation
 
