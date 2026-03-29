@@ -2,7 +2,7 @@
 
 The script is as-is and was in general just for personal use, I set this git up so others who stumble upon might find it useful too. I personally have no experience in python and the script was made by 99% with ChatGPT (with a few hours of troubleshooting and feeding it with outputs). So expect a spaghetti code... sorry.
 
-This fork has the same contents but the readme section has been streamlined.
+This fork has the same contents but the readme section has been streamlined for installation.
 
 # Description
 
