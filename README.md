@@ -100,7 +100,7 @@ Terminal=false
 Categories=Utility;Game;
 Keywords=ds4;dualshock4;controller;
 ```
-Replace ```$user``` with your username, so the paths becomes correct. E.g. Exec=/home/randomusername/.venv/bin/python /home/randomusername/DualShock-uinput/ds4input.py
+Replace ```$user``` with your username, so the paths becomes correct. E.g. ```Exec=/home/randomusername/.venv/bin/python /home/randomusername/DualShock-uinput/ds4input.py```
 
 Now make this desktop entry an executeable:
 ```
