@@ -98,7 +98,7 @@ Type=Application
 Icon=input-gaming
 Terminal=false
 Categories=Utility;Game;
-Keywords=ds4;dualshock4;controller;
+Keywords=ds4;dualshock4;controller;dualsense;sense;
 ```
 Replace ```$user``` with your username, so the paths becomes correct. E.g. ```Exec=/home/randomusername/.venv/bin/python /home/randomusername/DualShock-uinput/ds4input.py```
 
