@@ -10,12 +10,7 @@ It in general reads the raw input from the PS controllers and sends it as a virt
 
 **It only works for one active controller!**
 
-# Installing
-Download the files manually or clone
-```
-cd ~
-git clone https://github.com/sera-ina/DualShock-uinput.git
-```
+
 
 ## Requirements
 ### packages
@@ -36,7 +31,12 @@ sudo apt install python3-dev python3-venv
 ```
 note: rest of the dependencies are not needed in my testing. might have to use ```bluez``` instead of ```bluetoothctl``` for ubuntu based distros.
 
-## Preparation
+# Installation
+Download the files manually or clone
+```
+cd ~
+git clone https://github.com/sera-ina/DualShock-uinput.git
+```
 
 Once you installed python on your system, create a virtual enviroment (for example ".venv" in your home folder)
 ```
