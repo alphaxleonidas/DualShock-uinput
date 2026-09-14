@@ -1,8 +1,8 @@
 # Disclaimer
 
-The script is as-is and was in general just for personal use, I set this git up so others who stumble upon might find it useful too. I personally have no experience in python and the script was made by 99% with ChatGPT (with a few hours of troubleshooting and feeding it with outputs). So expect a spaghetti code... sorry.
+The original repo was made by ChatGPT but this fork has been modified using Copilot. Sorry if it's messy. 
 
-This fork has the same contents but the readme section has been streamlined for installation.
+This fork has been modified for multicontroller support and hotplugging. 
 
 # Description
 
@@ -10,7 +10,9 @@ I wanted a tool that works systemwide for any game so I don't always have to rel
 
 It in general reads the raw input from the PS controllers and sends it as a virtual controller in uinput (xinput), which I needed especially in older games which don't support DirectInput at all.
 
-**It only works for one active controller!**
+~~**It only works for one active controller!**~~
+
+**It works with multiple active controllers. Tested on two.**
 
 
 
@@ -19,28 +21,29 @@ It in general reads the raw input from the PS controllers and sends it as a virt
 - python3
 - python3-dev
 - python3-venv
+- python3-pyudev (for hotplug support)
 ### pip
 - python_uinput
 - evdev
 ### system
 - bluetoothctl
-  - if desired to be able to disconnect the controller via (PS + Start) combination
+  - for disconnecting the controller via (PS + Start) combination
 ### dependency installation
-- for an ubuntu based distro, use:
+- for an Ubuntu based distro, use:
 ```
 sudo apt update
-sudo apt install python3-dev python3-venv
+sudo apt install python3-dev python3-venv python3-pyudev
 ```
-note: rest of the dependencies are not needed in my testing. might have to use ```bluez``` instead of ```bluetoothctl``` for ubuntu based distros.
+note: rest of the dependencies are not needed in my testing. might have to use ```bluez``` instead of ```bluetoothctl```.
 
 # Installation
-Download the files manually or clone repo
+Clone repo
 ```
 cd ~
-git clone https://github.com/sera-ina/DualShock-uinput.git
+git clone https://github.com/alphaxleonidas/DualShock-uinput.git
 ```
 
-Once you installed python on your system, create a virtual enviroment (for example ".venv" in your home folder)
+Create a python virtual environment
 ```
 python3 -m venv ~/.venv
 ```
@@ -48,7 +51,7 @@ Update pip
 ```
 ~/.venv/bin/pip install --upgrade pip setuptools wheel
 ```
-When it is done, install the dependencies manually or with the requirements.txt file
+Install the dependencies manually or with the `requirements.txt` file
 ```
 ~/.venv/bin/pip install -r ~/DualShock-uinput/requirements.txt
 ```
@@ -73,45 +76,121 @@ Reload udev rules
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
+<details>
+  <summary>For NixOS</summary>
+  --------------------------
+  
+Add this to your `configuration.nix` 
+  
+```
+{ config, lib, ... }: {
+
+  services.udev.extraRules = ''
+    KERNEL=="uinput", MODE="0660", GROUP="input"
+  '';
+  
+  users.users.<username> = {
+  
+    extraGroups  = [
+      "input"  
+    ];
+}
+```
+Replace `<username>` with our username.
+
+
+Rebuild
+
+
+Go to `requirements.txt` and comment the line `evdev==1.9.2`. It is being declared in `shell.nix`.
+
+To run: 
+```
+cd ~/DualShock-uinput
+nix-shell
+python ds4-uinput.py
+```
+For desktop entry: 
+```
+mkdir -p ~/.local/share/applications
+nano ~/.local/share/applications/ds4-uinput.desktop
+```
+Add this:
+```
+[Desktop Entry]
+Type=Application
+Name=DualShock Multiplayer
+Comment=Run DualShock uinput multiplayer script
+Exec=nix-shell --run "python ds4-uinput.py"
+Path=/home/nixoid/DualShock-uinput
+Terminal=false
+Categories=Game;Utility;
+```
+```
+chmod +x ~/.local/share/applications/ds4-multiplayer.desktop
+```
+
+---------------------
+
+
+
+</details>   
 
 # Usage
 
 **Steps:**
 - **Connect you PS4/PS5 controller first via USB or Bluetooth**, then run the script
 ```
-~/.venv/bin/python ~/DualShock-uinput/ds4input.py
+~/.venv/bin/python ~/DualShock-uinput/ds4-uinput.py
 ```
-as the script looks for the controller directly on start else the script will just stop with an error.
+~~as the script looks for the controller directly on start else the script will just stop with an error.~~ Now supports hot plugging.
 
 # Creating an App Entry
 
-Instead of running the command, you can create a script which will appear in the App Menu.
+Instead of running the command, you can create a launch script which will appear in the App Menu.
 ```
-nano ~/.local/share/applications/ds4input.desktop
+nano ~/.local/share/applications/ds4-uinput.desktop
 ```
 Add this to the file: 
 ```
 [Desktop Entry]
 Version=1.0
-Name=DualShock uinput
-Comment=Run DualShock DS4 input script
-Exec=/home/$user/.venv/bin/python /home/$user/DualShock-uinput/ds4input.py
+Name=DualShock Multiplayer uinput
+Comment=Run DualShock DS4 input script with Hot plugging support
+Exec=/home/YOURUSERNAME/.venv/bin/python /home/YOURUSERNAME/DualShock-uinput/ds4-uinput.py
 Type=Application
 Icon=input-gaming
 Terminal=false
 Categories=Utility;Game;
 Keywords=ds4;dualshock4;controller;dualsense;sense;
 ```
-Replace ```$user``` with your username, so the paths becomes correct. E.g. ```Exec=/home/randomusername/.venv/bin/python /home/randomusername/DualShock-uinput/ds4input.py```
+Replace ```YOURUSERNAME``` in the Exec line with your username, so both the paths becomes correct.
+
 
 Now make this desktop entry an executeable:
 ```
-chmod +x ~/.local/share/applications/ds4input.desktop
+chmod +x ~/.local/share/applications/ds4-uinput.desktop
 ```
-Now logout and relogin into a new session. You will see ```DualShock uinput``` in the appmenu.
-Now connect your DualShock or DualSense and run the ```DualShock uinput``` from the appmenu.
+Now logout and relogin into a new session. You will see ```DualShock Multiplayer uinput``` in the appmenu.
+Now connect your DualShock or DualSense and run the ```DualShock Multiplayer uinput``` from the appmenu.
+
+# Autostart on login
+
+```
+cp ~/.local/share/applications/ds4-uinput.desktop ~/.config/autostart/
+```
+
+# Disconnect
+To disconnect from bluetooth, use (PS + Start) 
 
 # Additional Infos
 - No vibration / force feedback
 - The PS button is a separate button that you can map, for example in AntiMicroX
 - In the config.py file you can change the deadzone of each stick, the name of the controller and if you want to be able to use the (PS + Start) combo to disconnect the controller.
+- ```ds4-uinput.py``` is for hotplugging support.
+
+#  Issues
+- After first connecting, the system automatically registers up+forward input from the controller. Which resolves after moving the Left and Right Analogue Sticks. 
+- The kernel module needs to be signed each time you update your kernel. Only for secure boot
+
+# Signing the Module: [Guide](https://github.com/alphaxleonidas/DualShock-uinput/tree/main/Signing)
