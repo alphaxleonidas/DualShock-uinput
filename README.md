@@ -122,10 +122,11 @@ Type=Application
 Name=DualShock Multiplayer
 Comment=Run DualShock uinput multiplayer script
 Exec=nix-shell --run "python ds4-uinput.py"
-Path=/home/nixoid/DualShock-uinput
+Path=/home/<username>/DualShock-uinput
 Terminal=false
 Categories=Game;Utility;
 ```
+Replace `<username>` with your username
 ```
 chmod +x ~/.local/share/applications/ds4-multiplayer.desktop
 ```
