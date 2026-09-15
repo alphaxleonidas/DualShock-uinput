@@ -29,15 +29,38 @@ It in general reads the raw input from the PS controllers and sends it as a virt
 - bluetoothctl
   - for disconnecting the controller via (PS + Start) combination
 ### dependency installation
-- for an Ubuntu based distro, use:
+<details> <summary> Debian </summary>
+  
 ```
 sudo apt update
 sudo apt install python3-dev python3-venv python3-pyudev
 ```
-note: rest of the dependencies are not needed in my testing. might have to use ```bluez``` instead of ```bluetoothctl```.
 
-# Installation
-Clone repo
+</details>
+
+<details> <summary> Fedora</summary>
+
+```
+sudo dnf upgrade --refresh
+sudo dnf install python3 python3-pip python3-pyudev sbctl zstd
+```
+
+</details>
+
+<details><summary> Arch </summary> 
+
+```
+sudo pacman -S python python-pip python-pyudev
+```
+  
+</details>
+
+# Installation 
+
+<details> <summary>Regular distros </summary>  
+
+  
+  Clone repo
 ```
 cd ~
 git clone https://github.com/alphaxleonidas/DualShock-uinput.git
@@ -76,9 +99,11 @@ Reload udev rules
 sudo udevadm control --reload-rules
 sudo udevadm trigger
 ```
-<details>
-  <summary>For NixOS</summary>
-  --------------------------
+</details>
+
+
+<details> <summary>For NixOS</summary>
+  ---------------------------
   
 Add this to your `configuration.nix` 
   
@@ -104,13 +129,14 @@ Rebuild
 
 Go to `requirements.txt` and comment the line `evdev==1.9.2`. It is being declared in `shell.nix`.
 
-To run: 
+
+**Commands to Run:** 
 ```
 cd ~/DualShock-uinput
 nix-shell
 python ds4-uinput.py
 ```
-For desktop entry: 
+**For desktop entry:** 
 ```
 mkdir -p ~/.local/share/applications
 nano ~/.local/share/applications/ds4-uinput.desktop
@@ -130,8 +156,10 @@ Replace `<username>` with your username
 ```
 chmod +x ~/.local/share/applications/ds4-multiplayer.desktop
 ```
+To make it an executable. Run from the AppMenu
 
----------------------
+---------------------------
+
 
 
 
@@ -146,7 +174,13 @@ chmod +x ~/.local/share/applications/ds4-multiplayer.desktop
 ```
 ~~as the script looks for the controller directly on start else the script will just stop with an error.~~ Now supports hot plugging.
 
+
+# Disconnect
+To disconnect from bluetooth, use (PS + Start) 
+
+
 # Creating an App Entry
+<details> <summary>Steps:</summary>
 
 Instead of running the command, you can create a launch script which will appear in the App Menu.
 ```
@@ -181,8 +215,8 @@ Now connect your DualShock or DualSense and run the ```DualShock Multiplayer uin
 cp ~/.local/share/applications/ds4-uinput.desktop ~/.config/autostart/
 ```
 
-# Disconnect
-To disconnect from bluetooth, use (PS + Start) 
+</details>
+
 
 # Additional Infos
 - No vibration / force feedback
