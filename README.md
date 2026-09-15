@@ -108,17 +108,20 @@ sudo udevadm trigger
 Add this to your `configuration.nix` 
   
 ```
-{ config, lib, ... }: {
+{ ... }: {
 
   services.udev.extraRules = ''
     KERNEL=="uinput", MODE="0660", GROUP="input"
   '';
+
+# Add "input" to extraGroups of your user: 
   
   users.users.<username> = {
   
     extraGroups  = [
       "input"  
     ];
+  }
 }
 ```
 Replace `<username>` with our username.
