@@ -105,26 +105,25 @@ sudo udevadm trigger
 <details> <summary>For NixOS</summary>
   ---------------------------
   
-Add this to your `configuration.nix` 
-  
-```
-{ ... }: {
+Add these to your `flake module` or `configuration.nix` (no arguments needed in the 
+module function header for either except `{ ... }` at the top.
 
+
+Add udev rules:  
+```
   services.udev.extraRules = ''
     KERNEL=="uinput", MODE="0660", GROUP="input"
   '';
-
-# Add "input" to extraGroups of your user: 
-  
+```
+Add `"input"` to extraGroups of your user. Replace `<username>` with our username: 
+```
   users.users.<username> = {
   
     extraGroups  = [
       "input"  
     ];
-  }
-}
+  };
 ```
-Replace `<username>` with our username.
 
 
 Rebuild
