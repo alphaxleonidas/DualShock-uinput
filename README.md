@@ -170,7 +170,7 @@ chmod +x ~/.local/share/applications/ds4-uinput.desktop
 To make it an executable. Run from the AppMenu.
 
 
-For autostart:
+**For autostart:**
 ```
 cp -v ~/.local/share/applications/ds4-uinput.desktop ~/.config/autostart/
 ```
