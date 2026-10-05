@@ -129,13 +129,22 @@ Add `"input"` to extraGroups of your user. Replace `<username>` with our usernam
 Rebuild
 
 
+Clone repo:
+```
+cd ~
+git clone https://github.com/alphaxleonidas/DualShock-uinput.git
+```
 Go to `requirements.txt` and comment the line `evdev==1.9.2`. It is being declared in `shell.nix`.
-
+```
+nano ~/DualShock-uinput/requirements.txt
+```
 
 **Commands to Run:** 
 ```
 cd ~/DualShock-uinput
 nix-shell
+```
+```
 python ds4-uinput.py
 ```
 **For desktop entry:** 
@@ -156,9 +165,15 @@ Categories=Game;Utility;
 ```
 Replace `<username>` with your username
 ```
-chmod +x ~/.local/share/applications/ds4-multiplayer.desktop
+chmod +x ~/.local/share/applications/ds4-uinput.desktop
 ```
-To make it an executable. Run from the AppMenu
+To make it an executable. Run from the AppMenu.
+
+
+For autostart:
+```
+cp -v ~/.local/share/applications/ds4-uinput.desktop ~/.config/autostart/
+```
 
 ---------------------------
 
