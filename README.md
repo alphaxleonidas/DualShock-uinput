@@ -152,22 +152,22 @@ python ds4-uinput.py
 mkdir -p ~/.local/share/applications
 nano ~/.local/share/applications/ds4-uinput.desktop
 ```
-Add this:
+Add this: (Replace `<username>` with your username)
 ```
-[Desktop Entry]
-Type=Application
 Name=DualShock Multiplayer
 Comment=Run DualShock uinput multiplayer script
 Exec=nix-shell --run "python ds4-uinput.py"
-Path=/home/<username>/DualShock-uinput
+Path=/home/<username>/DualShock-uinputType=Application
+Icon=input-gaming
 Terminal=false
-Categories=Game;Utility;
+Categories=Utility;Game;
+Keywords=ds4;dualshock4;controller;dualsense;sense;
 ```
-Replace `<username>` with your username
+To make it an executable.
 ```
 chmod +x ~/.local/share/applications/ds4-uinput.desktop
 ```
-To make it an executable. Run from the AppMenu.
+Run from the AppMenu.
 
 
 **For autostart:**
@@ -206,9 +206,8 @@ nano ~/.local/share/applications/ds4-uinput.desktop
 Add this to the file: 
 ```
 [Desktop Entry]
-Version=1.0
-Name=DualShock Multiplayer uinput
-Comment=Run DualShock DS4 input script with Hot plugging support
+Name=DualShock Multiplayer
+Comment=Run DualShock uinput multiplayer script
 Exec=/home/YOURUSERNAME/.venv/bin/python /home/YOURUSERNAME/DualShock-uinput/ds4-uinput.py
 Type=Application
 Icon=input-gaming
@@ -229,7 +228,7 @@ Now connect your DualShock or DualSense and run the ```DualShock Multiplayer uin
 # Autostart on login
 
 ```
-cp ~/.local/share/applications/ds4-uinput.desktop ~/.config/autostart/
+cp -v ~/.local/share/applications/ds4-uinput.desktop ~/.config/autostart/
 ```
 
 </details>
