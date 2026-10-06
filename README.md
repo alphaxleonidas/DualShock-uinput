@@ -158,6 +158,7 @@ Add this:
 Type=Application
 Name=DualShock Multiplayer
 Comment=Run DualShock uinput multiplayer script
+Icon=input-gaming
 Exec=nix-shell --run "python ds4-uinput.py"
 Path=/home/<username>/DualShock-uinput
 Terminal=false
